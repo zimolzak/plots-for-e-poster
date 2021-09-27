@@ -29,9 +29,13 @@ input_df = filename2df('positively_renamed.csv')
 say('Dimensions of input')
 dim(input_df)
 
-say('Example')
-head(input_df)
+input_df %>%
+gather(matches("_test"), key="test_type", value="test_time", na.rm=TRUE) -> out
 
+say('tidy')
+out %>%
+select(ID, test_type, test_time) %>%
+arrange(ID)
 
 
 
