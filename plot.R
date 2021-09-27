@@ -43,8 +43,6 @@ say('tidy')
 out %>%
 arrange(ID)
 
-# heart, lung, liver, pre
-
 out %>% filter(grepl("heart", ORGAN) & pre_post == 2) -> heart
 out %>% filter(grepl("kidney", ORGAN) & pre_post == 2 & ! grepl("Multi", ORGAN)) -> kidney
 out %>% filter(grepl("liver", ORGAN) & pre_post == 2 & ! grepl("Multi", ORGAN)) -> liver
