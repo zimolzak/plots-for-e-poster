@@ -30,11 +30,14 @@ say('Dimensions of input')
 dim(input_df)
 
 input_df %>%
-gather(matches("_test"), key="test_type", value="test_time", na.rm=TRUE) -> out
+gather(matches("_test"), key="test_type", value="test_time", na.rm=TRUE) %>%
+rename(pcr.n = patient.number.for.PCR.chart, charac.n = Characteristics.chart.,
+    pre_post = Transplant.Status..Pre.1..Post.2) %>%
+mutate(test_name = case_when(grepl("pcr", test_type) ~ "pcr", grepl("ab", test_type) ~ "ab")) %>%
+mutate(test_result = case_when(grepl("pos", test_type) ~ "pos", grepl("neg", test_type) ~ "neg")) -> out
 
 say('tidy')
 out %>%
-select(ID, test_type, test_time) %>%
 arrange(ID)
 
 
