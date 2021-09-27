@@ -42,10 +42,20 @@ arrange(ID)
 
 
 
+
+#### Plot
+
+ggplot(out, aes(x = test_time, y = ID)) +
+ geom_point() -> simple
+
+
+
+
 #### Write to plot files
 
 say('\n\n----\n\nEnd of text output. Now plotting.')
-#pdf(here("outputs", "Rplots.pdf"))
-#derp
-#dev.off()
+pdf(here("outputs", "Rplots.pdf"))
+simple
+dev.off()
+
 # ggsave png here if needed
