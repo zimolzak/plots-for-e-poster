@@ -55,22 +55,22 @@ out %>% filter(pre_post == 1) -> pre
 
 #### Plot
 
-ggplot(heart, aes(x = test_time, y = ID, shape = test_and_result)) + labs(title="Heart") + geom_point(alpha=0.8) +
- scale_shape_manual(values=c(2,17,1,16)) -> heartplot
+ggplot(heart, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Heart") + geom_point(alpha=0.8) +
+ scale_shape_manual(values=c(2,17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150)) -> heartplot
 #                           ^  ^^  O OO
 #                           a- a+  p- p+
 
-ggplot(kidney, aes(x = test_time, y = ID, shape = test_and_result)) + labs(title="Kidney") + geom_point(alpha=0.8) +
- scale_shape_manual(values=c(2,17,1,16)) -> kidneyplot
+ggplot(kidney, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Kidney") + geom_point(alpha=0.8) +
+ scale_shape_manual(values=c(2,17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150)) -> kidneyplot
 
 
  
-ggplot(liver, aes(x = test_time, y = ID, shape = test_and_result)) + labs(title="Liver") + geom_point(alpha=0.8) +
- scale_shape_manual(values=c(17,1,16)) -> liverplot
+ggplot(liver, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Liver") + geom_point(alpha=0.8) +
+ scale_shape_manual(values=c(17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150)) -> liverplot
  #          ad hoc, no ab_neg
  
-ggplot(pre, aes(x = test_time, y = ID, shape = test_and_result)) + labs(title="Pre-transplant") + geom_point(alpha=0.8) +
- scale_shape_manual(values=c(2,17,1,16)) -> preplot
+ggplot(pre, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Pre-transplant") + geom_point(alpha=0.8) +
+ scale_shape_manual(values=c(2,17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150)) -> preplot
 
 
 
@@ -78,7 +78,7 @@ ggplot(pre, aes(x = test_time, y = ID, shape = test_and_result)) + labs(title="P
 #### Write to plot files
 
 say('\n\n----\n\nEnd of text output. Now plotting.')
-pdf(here("outputs", "Rplots.pdf"))
+pdf(here("outputs", "Rplots.pdf"), 11, 7)
 heartplot
 kidneyplot
 liverplot
