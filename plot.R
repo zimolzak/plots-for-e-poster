@@ -14,9 +14,9 @@ filename2df <- function(fname) {
     return(df)
 }
 
-say = function(s) {
-    sL = c('\n', s, ' ----\n')
-    cat(paste(sL, collapse=''))
+say = function(mystr) {
+    mystr_formatted = c('\n', mystr, ' ----\n')
+    cat(paste(mystr_formatted, collapse=''))
 }
 
 
@@ -53,38 +53,43 @@ out %>% filter(pre_post == 1) -> pre
 
 
 
-#### Plot
+#### Plots
+
+XLABEL = "Days after positive SARS-CoV-2 PCR"
+MYALPHA = 0.6
+POINTSIZE = 5
+XCUTOFF = 150
 
 ggplot(heart, aes(x = test_time, y = ID, shape = test_and_result)) +
-    labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Heart") +
-    geom_point(alpha=0.6, size=5) +
-    scale_shape_manual(values=c(2, 17, 1, 16)) +
-    scale_x_continuous(breaks = (0:5) * 30, limits=c(0,150)) +
-    theme(legend.position="none", axis.text.y = element_blank(),
+    labs(y = "", x = XLABEL, title = "Heart") +
+    geom_point(alpha = MYALPHA, size = POINTSIZE) +
+    scale_shape_manual(values = c(2, 17, 1, 16)) +
+    scale_x_continuous(breaks = (0:5) * 30, limits = c(0, XCUTOFF)) +
+    theme(legend.position = "none", axis.text.y = element_blank(),
         panel.background = element_blank(), axis.line = element_line()) -> heartplot
 
 ggplot(kidney, aes(x = test_time, y = ID, shape = test_and_result)) +
-    labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Kidney") +
-    geom_point(alpha=0.6, size=5) +
-    scale_shape_manual(values=c(2, 17, 1, 16)) +
-    scale_x_continuous(breaks = (0:5) * 30, limits=c(0, 150)) +
-    theme(legend.position="none", axis.text.y = element_blank(),
+    labs(y = "", x = XLABEL, title = "Kidney") +
+    geom_point(alpha = MYALPHA, size = POINTSIZE) +
+    scale_shape_manual(values = c(2, 17, 1, 16)) +
+    scale_x_continuous(breaks = (0:5) * 30, limits = c(0, XCUTOFF)) +
+    theme(legend.position = "none", axis.text.y = element_blank(),
         panel.background = element_blank(), axis.line = element_line()) -> kidneyplot
  
 ggplot(liver, aes(x = test_time, y = ID, shape = test_and_result)) +
-    labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Liver") +
-    geom_point(alpha=0.6, size=5) +
-    scale_shape_manual(values=c(17, 1, 16)) +   # ad hoc, no ab_neg
-    scale_x_continuous(breaks = (0:5) * 30, limits=c(0, 150)) +
-    theme(legend.position="none", axis.text.y = element_blank(),
+    labs(y = "", x = XLABEL, title = "Liver") +
+    geom_point(alpha = MYALPHA, size = POINTSIZE) +
+    scale_shape_manual(values = c(17, 1, 16)) +   # ad hoc, no ab_neg
+    scale_x_continuous(breaks = (0:5) * 30, limits=c(0, XCUTOFF)) +
+    theme(legend.position = "none", axis.text.y = element_blank(),
         panel.background = element_blank(), axis.line = element_line()) -> liverplot
  
 ggplot(pre, aes(x = test_time, y = ID, shape = test_and_result)) +
-    labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Pre-transplant") +
-    geom_point(alpha=0.6, size=5) +
-    scale_shape_manual(values=c(2, 17, 1, 16)) +
-    scale_x_continuous(breaks = (0:5) * 30, limits=c(0, 150)) +
-    theme(legend.position="none", axis.text.y = element_blank(),
+    labs(y = "", x = XLABEL, title = "Pre-transplant") +
+    geom_point(alpha = MYALPHA, size = POINTSIZE) +
+    scale_shape_manual(values = c(2, 17, 1, 16)) +
+    scale_x_continuous(breaks = (0:5) * 30, limits = c(0, XCUTOFF)) +
+    theme(legend.position = "none", axis.text.y = element_blank(),
         panel.background = element_blank(), axis.line = element_line()) -> preplot
 
 
@@ -92,15 +97,18 @@ ggplot(pre, aes(x = test_time, y = ID, shape = test_and_result)) +
 
 #### Write to plot files
 
+MYWIDTH = 11
+MYHEIGHT = 7
+
 say('\n\n----\n\nEnd of text output. Now plotting.')
-pdf(here("outputs", "Rplots.pdf"), 11, 7)
+pdf(here("outputs", "Rplots.pdf"), MYWIDTH, MYHEIGHT)
 heartplot
 kidneyplot
 liverplot
 preplot
 dev.off()
 
-ggsave("heart.png", heartplot, width=11, height=7)
-ggsave("kidney.png", kidneyplot, width=11, height=7)
-ggsave("liver.png", liverplot, width=11, height=7)
-ggsave("pretransplant.png", preplot, width=11, height=7)
+ggsave("heart.png", heartplot, width = MYWIDTH, height = MYHEIGHT)
+ggsave("kidney.png", kidneyplot, width = MYWIDTH, height = MYHEIGHT)
+ggsave("liver.png", liverplot, width = MYWIDTH, height = MYHEIGHT)
+ggsave("pretransplant.png", preplot, width = MYWIDTH, height = MYHEIGHT)
