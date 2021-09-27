@@ -55,23 +55,28 @@ out %>% filter(pre_post == 1) -> pre
 
 #### Plot
 
-ggplot(heart, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Heart") + geom_point(alpha=0.8) +
- scale_shape_manual(values=c(2,17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150)) -> heartplot
+ggplot(heart, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Heart") + geom_point(alpha=0.8, size=5) +
+ scale_shape_manual(values=c(2,17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150)) + theme(legend.position="none", axis.text.y = element_blank(), panel.background = element_blank(), axis.line = element_line()) -> heartplot
 #                           ^  ^^  O OO
 #                           a- a+  p- p+
 
-ggplot(kidney, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Kidney") + geom_point(alpha=0.8) +
- scale_shape_manual(values=c(2,17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150)) -> kidneyplot
+ggplot(kidney, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Kidney") + geom_point(alpha=0.8, size=5) +
+ scale_shape_manual(values=c(2,17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150))  + theme(legend.position="none", axis.text.y = element_blank(), panel.background = element_blank(), axis.line = element_line()) -> kidneyplot
 
 
  
-ggplot(liver, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Liver") + geom_point(alpha=0.8) +
- scale_shape_manual(values=c(17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150)) -> liverplot
+ggplot(liver, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Liver") + geom_point(alpha=0.8, size=5) +
+ scale_shape_manual(values=c(17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150))  + theme(legend.position="none", axis.text.y = element_blank(), panel.background = element_blank(), axis.line = element_line()) -> liverplot
  #          ad hoc, no ab_neg
  
-ggplot(pre, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Pre-transplant") + geom_point(alpha=0.8) +
- scale_shape_manual(values=c(2,17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150)) -> preplot
+ggplot(pre, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Pre-transplant") + geom_point(alpha=0.8, size=5) +
+ scale_shape_manual(values=c(2,17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150))  + theme(legend.position="none", axis.text.y = element_blank(), panel.background = element_blank(), axis.line = element_line()) -> preplot
 
+
+
+# TODO
+# y axis numbers
+# background
 
 
 
