@@ -1,1 +1,6 @@
 *.csv
+.DS_Store
+*~
+outputs/*.txt
+outputs/*.pdf
+outputs/*.png
