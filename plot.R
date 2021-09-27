@@ -9,7 +9,7 @@ library(tidyr)
 #### Functions
 
 filename2df <- function(fname) {
-    df = read.csv(here(fname), sep=",",
+    df = read.csv(here("outputs", fname), sep=",",
         stringsAsFactors = FALSE, na.strings="null")
     return(df)
 }
@@ -24,13 +24,13 @@ say = function(s) {
 
 #### Load data
 
-input_df = filename2df('pcr-chart-data-no-phi-id.csv')
+input_df = filename2df('positively_renamed.csv')
 
 say('Dimensions of input')
 dim(input_df)
 
-
-
+say('Example')
+head(input_df)
 
 
 
