@@ -55,42 +55,25 @@ out %>% filter(pre_post == 1) -> pre
 
 #### Plots
 
-XLABEL = "Days after positive SARS-CoV-2 PCR"
-MYALPHA = 0.6
-POINTSIZE = 5
-XCUTOFF = 150
+plot_timeline = function(df, mytitle, myshapes) {
+    XLABEL = "Days after positive SARS-CoV-2 PCR"
+    MYALPHA = 0.6
+    POINTSIZE = 5
+    XCUTOFF = 150
+    ggplot(df, aes(x = test_time, y = ID, shape = test_and_result)) +
+        labs(y = "", x = XLABEL, title = mytitle) +
+        geom_point(alpha = MYALPHA, size = POINTSIZE) +
+        scale_shape_manual(values = myshapes) +
+        scale_x_continuous(breaks = (0:5) * 30, limits = c(0, XCUTOFF)) +
+        theme(legend.position = "none", axis.text.y = element_blank(),
+            panel.background = element_blank(), axis.line = element_line()) -> myplot
+    return(myplot)
+}
 
-ggplot(heart, aes(x = test_time, y = ID, shape = test_and_result)) +
-    labs(y = "", x = XLABEL, title = "Heart") +
-    geom_point(alpha = MYALPHA, size = POINTSIZE) +
-    scale_shape_manual(values = c(2, 17, 1, 16)) +
-    scale_x_continuous(breaks = (0:5) * 30, limits = c(0, XCUTOFF)) +
-    theme(legend.position = "none", axis.text.y = element_blank(),
-        panel.background = element_blank(), axis.line = element_line()) -> heartplot
-
-ggplot(kidney, aes(x = test_time, y = ID, shape = test_and_result)) +
-    labs(y = "", x = XLABEL, title = "Kidney") +
-    geom_point(alpha = MYALPHA, size = POINTSIZE) +
-    scale_shape_manual(values = c(2, 17, 1, 16)) +
-    scale_x_continuous(breaks = (0:5) * 30, limits = c(0, XCUTOFF)) +
-    theme(legend.position = "none", axis.text.y = element_blank(),
-        panel.background = element_blank(), axis.line = element_line()) -> kidneyplot
- 
-ggplot(liver, aes(x = test_time, y = ID, shape = test_and_result)) +
-    labs(y = "", x = XLABEL, title = "Liver") +
-    geom_point(alpha = MYALPHA, size = POINTSIZE) +
-    scale_shape_manual(values = c(17, 1, 16)) +   # ad hoc, no ab_neg
-    scale_x_continuous(breaks = (0:5) * 30, limits=c(0, XCUTOFF)) +
-    theme(legend.position = "none", axis.text.y = element_blank(),
-        panel.background = element_blank(), axis.line = element_line()) -> liverplot
- 
-ggplot(pre, aes(x = test_time, y = ID, shape = test_and_result)) +
-    labs(y = "", x = XLABEL, title = "Pre-transplant") +
-    geom_point(alpha = MYALPHA, size = POINTSIZE) +
-    scale_shape_manual(values = c(2, 17, 1, 16)) +
-    scale_x_continuous(breaks = (0:5) * 30, limits = c(0, XCUTOFF)) +
-    theme(legend.position = "none", axis.text.y = element_blank(),
-        panel.background = element_blank(), axis.line = element_line()) -> preplot
+plot_timeline(heart, "Heart", c(2, 17, 1, 16)) -> heartplot
+plot_timeline(kidney, "Kidney", c(2, 17, 1, 16)) -> kidneyplot
+plot_timeline(liver, "Liver", c(17, 1, 16)) -> liverplot  # ad hoc, no ab_neg
+plot_timeline(pre, "Pre-transplant", c(2, 17, 1, 16)) -> preplot
 
 
 
