@@ -40,13 +40,21 @@ say('tidy')
 out %>%
 arrange(ID)
 
+# heart, lung, liver, pre
+
+out %>% filter(grepl("heart", ORGAN) & pre_post == 2) -> heart
+out %>% filter(grepl("lung", ORGAN) & pre_post == 2) -> lung
+out %>% filter(grepl("liver", ORGAN) & pre_post == 2 & ! grepl("Multi", ORGAN)) -> liver
+out %>% filter(pre_post == 1) -> pre
+
 
 
 
 #### Plot
 
-ggplot(out, aes(x = test_time, y = ID, shape = test_name, color = test_result)) +
- geom_point() -> simple
+ggplot(heart, aes(x = test_time, y = ID, shape = test_name, color = test_result)) +
+ labs(title="Heart") +
+ geom_point() -> heartplot
 
 
 
@@ -55,7 +63,7 @@ ggplot(out, aes(x = test_time, y = ID, shape = test_name, color = test_result)) 
 
 say('\n\n----\n\nEnd of text output. Now plotting.')
 pdf(here("outputs", "Rplots.pdf"))
-simple
+heartplot
 dev.off()
 
 # ggsave png here if needed
