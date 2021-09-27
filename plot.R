@@ -90,4 +90,7 @@ liverplot
 preplot
 dev.off()
 
-# ggsave png here if needed
+ggsave("heart.png", heartplot, width=11, height=7)
+ggsave("kidney.png", kidneyplot, width=11, height=7)
+ggsave("liver.png", liverplot, width=11, height=7)
+ggsave("pretransplant.png", preplot, width=11, height=7)
