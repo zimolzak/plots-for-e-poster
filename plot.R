@@ -15,8 +15,8 @@ filename2df <- function(fname) {
 }
 
 say = function(s) {
-	sL = c('\n', s, ' ----\n')
-	cat(paste(sL, collapse=''))
+    sL = c('\n', s, ' ----\n')
+    cat(paste(sL, collapse=''))
 }
 
 
@@ -37,7 +37,7 @@ mutate(test_name = case_when(grepl("pcr", test_type) ~ "pcr", grepl("ab", test_t
 mutate(test_result = case_when(grepl("pos", test_type) ~ "pos", grepl("neg", test_type) ~ "neg")) %>%
 mutate_at(vars(ORGAN), funs(tolower(.))) %>%
 unite(test_name, test_result, col="test_and_result") %>%
-filter(! grepl("multi", ORGAN))-> out
+filter(! grepl("multi", ORGAN)) -> out
 
 say('tidy')
 out %>%
@@ -55,28 +55,38 @@ out %>% filter(pre_post == 1) -> pre
 
 #### Plot
 
-ggplot(heart, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Heart") + geom_point(alpha=0.6, size=5) +
- scale_shape_manual(values=c(2,17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150)) + theme(legend.position="none", axis.text.y = element_blank(), panel.background = element_blank(), axis.line = element_line()) -> heartplot
-#                           ^  ^^  O OO
-#                           a- a+  p- p+
+ggplot(heart, aes(x = test_time, y = ID, shape = test_and_result)) +
+    labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Heart") +
+    geom_point(alpha=0.6, size=5) +
+    scale_shape_manual(values=c(2, 17, 1, 16)) +
+    scale_x_continuous(breaks = (0:5) * 30, limits=c(0,150)) +
+    theme(legend.position="none", axis.text.y = element_blank(),
+        panel.background = element_blank(), axis.line = element_line()) -> heartplot
 
-ggplot(kidney, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Kidney") + geom_point(alpha=0.6, size=5) +
- scale_shape_manual(values=c(2,17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150))  + theme(legend.position="none", axis.text.y = element_blank(), panel.background = element_blank(), axis.line = element_line()) -> kidneyplot
-
-
+ggplot(kidney, aes(x = test_time, y = ID, shape = test_and_result)) +
+    labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Kidney") +
+    geom_point(alpha=0.6, size=5) +
+    scale_shape_manual(values=c(2, 17, 1, 16)) +
+    scale_x_continuous(breaks = (0:5) * 30, limits=c(0, 150)) +
+    theme(legend.position="none", axis.text.y = element_blank(),
+        panel.background = element_blank(), axis.line = element_line()) -> kidneyplot
  
-ggplot(liver, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Liver") + geom_point(alpha=0.6, size=5) +
- scale_shape_manual(values=c(17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150))  + theme(legend.position="none", axis.text.y = element_blank(), panel.background = element_blank(), axis.line = element_line()) -> liverplot
- #          ad hoc, no ab_neg
+ggplot(liver, aes(x = test_time, y = ID, shape = test_and_result)) +
+    labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Liver") +
+    geom_point(alpha=0.6, size=5) +
+    scale_shape_manual(values=c(17, 1, 16)) +   # ad hoc, no ab_neg
+    scale_x_continuous(breaks = (0:5) * 30, limits=c(0, 150)) +
+    theme(legend.position="none", axis.text.y = element_blank(),
+        panel.background = element_blank(), axis.line = element_line()) -> liverplot
  
-ggplot(pre, aes(x = test_time, y = ID, shape = test_and_result)) + labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Pre-transplant") + geom_point(alpha=0.6, size=5) +
- scale_shape_manual(values=c(2,17,1,16)) + scale_x_continuous(breaks = (0:5)*30, limits=c(0,150))  + theme(legend.position="none", axis.text.y = element_blank(), panel.background = element_blank(), axis.line = element_line()) -> preplot
+ggplot(pre, aes(x = test_time, y = ID, shape = test_and_result)) +
+    labs(y="", x = "Days after positive SARS-CoV-2 PCR", title="Pre-transplant") +
+    geom_point(alpha=0.6, size=5) +
+    scale_shape_manual(values=c(2, 17, 1, 16)) +
+    scale_x_continuous(breaks = (0:5) * 30, limits=c(0, 150)) +
+    theme(legend.position="none", axis.text.y = element_blank(),
+        panel.background = element_blank(), axis.line = element_line()) -> preplot
 
-
-
-# TODO
-# y axis numbers
-# background
 
 
 
