@@ -45,7 +45,7 @@ arrange(ID)
 
 #### Plot
 
-ggplot(out, aes(x = test_time, y = ID)) +
+ggplot(out, aes(x = test_time, y = ID, shape = test_name, color = test_result)) +
  geom_point() -> simple
 
 
