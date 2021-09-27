@@ -36,7 +36,8 @@ rename(pcr.n = patient.number.for.PCR.chart, charac.n = Characteristics.chart.,
 mutate(test_name = case_when(grepl("pcr", test_type) ~ "pcr", grepl("ab", test_type) ~ "ab")) %>%
 mutate(test_result = case_when(grepl("pos", test_type) ~ "pos", grepl("neg", test_type) ~ "neg")) %>%
 mutate_at(vars(ORGAN), funs(tolower(.))) %>%
-unite(test_name, test_result, col="test_and_result") -> out
+unite(test_name, test_result, col="test_and_result") %>%
+filter(! grepl("multi", ORGAN))-> out
 
 say('tidy')
 out %>%
